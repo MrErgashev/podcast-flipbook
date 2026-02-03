@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="description" content="Interactive comic-style flipbook for 6 Minute English - Anger Episode">
+  <title>6 Minute English — Anger Episode Flipbook</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a href="#book" class="skip-link">Skip to flipbook content</a>
+
+  <!-- Header toolbar -->
+  <header class="toolbar" role="banner">
+    <div class="toolbar-left">
+      <h1 class="logo">6 Minute English</h1>
+      <span class="subtitle">Anger Episode (Unofficial)</span>
+    </div>
+    <div class="toolbar-center">
+      <span class="page-indicator" aria-live="polite" aria-atomic="true">
+        Page <span id="currentPage">1</span> / <span id="totalPages">17</span>
+      </span>
+    </div>
+    <div class="toolbar-right">
+      <!-- Sound Toggle -->
+      <button
+        id="soundToggle"
+        class="sound-btn"
+        aria-pressed="true"
+        title="Sound On - Click to mute"
+      >
+        <span class="sound-icon">&#128266;</span>
+        <span class="sound-label">Sound</span>
+      </button>
+
+      <!-- Mode Toggle -->
+      <div class="mode-toggle" role="group" aria-label="Reading mode">
+        <button
+          id="readModeBtn"
+          class="mode-btn active"
+          aria-pressed="true"
+          title="Read Mode"
+        >
+          <span class="mode-icon">&#128214;</span>
+          <span class="mode-label">Read</span>
+        </button>
+        <button
+          id="studyModeBtn"
+          class="mode-btn"
+          aria-pressed="false"
+          title="Study Mode - Shows vocabulary hints"
+        >
+          <span class="mode-icon">&#128218;</span>
+          <span class="mode-label">Study</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main flipbook container -->
+  <main class="flipbook-container" id="flipbook-container">
+    <div class="book-wrapper">
+      <div class="book" id="book" role="region" aria-label="Flipbook" tabindex="0">
+        <div class="book-spine"></div>
+        <!-- Pages will be rendered by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Navigation controls -->
+    <nav class="controls" aria-label="Page navigation">
+      <button
+        id="prevBtn"
+        class="nav-btn prev-btn"
+        aria-label="Previous page"
+        disabled
+      >
+        <span class="nav-icon">&larr;</span>
+        <span class="nav-text">Prev</span>
+      </button>
+      <button
+        id="nextBtn"
+        class="nav-btn next-btn"
+        aria-label="Next page"
+      >
+        <span class="nav-text">Next</span>
+        <span class="nav-icon">&rarr;</span>
+      </button>
+    </nav>
+  </main>
+
+  <!-- Table of Contents Modal -->
+  <div class="toc-modal" id="tocModal" role="dialog" aria-modal="true" aria-labelledby="tocTitle" hidden>
+    <div class="toc-backdrop"></div>
+    <div class="toc-content">
+      <header class="toc-header">
+        <h2 id="tocTitle">Table of Contents</h2>
+        <button class="toc-close" id="tocClose" aria-label="Close table of contents">&times;</button>
+      </header>
+      <nav class="toc-list" id="tocList" aria-label="Scene navigation">
+        <!-- TOC items rendered by JavaScript -->
+      </nav>
+    </div>
+  </div>
+
+  <!-- TOC trigger button -->
+  <button
+    class="toc-trigger"
+    id="tocTrigger"
+    aria-label="Open table of contents"
+    title="Table of Contents"
+  >
+    <span class="toc-icon">&#9776;</span>
+  </button>
+
+  <!-- Screen reader announcements -->
+  <div class="sr-only" aria-live="assertive" id="announcer"></div>
+
+  <!-- Keyboard shortcuts help -->
+  <aside class="keyboard-help" id="keyboardHelp" hidden>
+    <h3>Keyboard Shortcuts</h3>
+    <ul>
+      <li><kbd>&larr;</kbd> Previous page</li>
+      <li><kbd>&rarr;</kbd> Next page</li>
+      <li><kbd>Home</kbd> First page</li>
+      <li><kbd>End</kbd> Last page</li>
+      <li><kbd>T</kbd> Table of Contents</li>
+      <li><kbd>M</kbd> Toggle Read/Study mode</li>
+      <li><kbd>S</kbd> Toggle Sound</li>
+      <li><kbd>?</kbd> Toggle this help</li>
+    </ul>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>
