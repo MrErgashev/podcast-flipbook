@@ -1229,18 +1229,28 @@ body:not(.study-mode) .vocab-hint {
 /* Tablet and below */
 @media (max-width: 900px) {
   :root {
-    --page-width: min(90vw, 380px);
-    --page-height: min(65vh, 520px);
+    --page-width: calc(100vw - 2rem);
+    --page-height: calc(100vh - 160px);
+  }
+
+  .flipbook-container {
+    padding: 60px 1rem 90px;
+    min-height: 100vh;
   }
 
   .book-wrapper {
     perspective: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   .book {
     width: var(--page-width);
     height: var(--page-height);
+    max-width: 500px;
     transform-style: flat;
+    position: relative;
   }
 
   .book-spine {
@@ -1250,10 +1260,11 @@ body:not(.study-mode) .vocab-hint {
   /* Single page view - hide all pages by default */
   .page {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    right: 0;
+    width: 100% !important;
+    height: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
     transform: none !important;
     transform-origin: center center;
     display: none;
@@ -1263,20 +1274,34 @@ body:not(.study-mode) .vocab-hint {
     display: none !important;
   }
 
+  .page.right-page {
+    width: 100% !important;
+  }
+
   /* Only show active page */
   .page.active {
     display: block !important;
     position: relative;
+    width: 100% !important;
+    height: 100% !important;
   }
 
   .page.flipped {
     display: none !important;
   }
 
-  /* Page content adjustments */
+  /* Page faces full width */
   .page-front,
   .page-back {
+    width: 100% !important;
+    height: 100% !important;
     backface-visibility: visible;
+  }
+
+  .page-content {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
   }
 
   .toolbar {
