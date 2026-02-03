@@ -507,6 +507,9 @@ function renderBook() {
   elements.book.innerHTML = '<div class="book-spine"></div>';
   elements.totalPagesEl.textContent = state.totalPages;
 
+  // Check mobile state before rendering
+  state.isMobile = window.innerWidth <= 900;
+
   bookData.forEach((pageData, index) => {
     const pageEl = createPageElement(pageData, index);
     elements.book.appendChild(pageEl);
@@ -516,6 +519,14 @@ function renderBook() {
   updatePageIndicator();
   updateNavButtons();
   updatePageVisibility();
+
+  // Ensure first page is active on mobile
+  if (state.isMobile) {
+    const firstPage = elements.book.querySelector('.page[data-page-id="0"]');
+    if (firstPage) {
+      firstPage.classList.add('active');
+    }
+  }
 }
 
 /**
@@ -746,7 +757,12 @@ function goToPage(pageNum) {
  */
 function nextPage() {
   if (state.currentPage < state.totalPages - 1 && !state.isFlipping) {
-    flipPage('forward');
+    if (state.isMobile) {
+      playPageTurnSound();
+      flipMobile(state.currentPage + 1);
+    } else {
+      flipPage('forward');
+    }
   }
 }
 
@@ -755,7 +771,12 @@ function nextPage() {
  */
 function prevPage() {
   if (state.currentPage > 0 && !state.isFlipping) {
-    flipPage('backward');
+    if (state.isMobile) {
+      playPageTurnSound();
+      flipMobile(state.currentPage - 1);
+    } else {
+      flipPage('backward');
+    }
   }
 }
 

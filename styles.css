@@ -1229,49 +1229,90 @@ body:not(.study-mode) .vocab-hint {
 /* Tablet and below */
 @media (max-width: 900px) {
   :root {
-    --page-width: min(85vw, 350px);
-    --page-height: min(70vh, 500px);
+    --page-width: min(90vw, 380px);
+    --page-height: min(65vh, 520px);
+  }
+
+  .book-wrapper {
+    perspective: none;
   }
 
   .book {
     width: var(--page-width);
+    height: var(--page-height);
+    transform-style: flat;
   }
 
   .book-spine {
     display: none;
   }
 
-  /* Single page view */
-  .page.left-page {
-    display: none;
-  }
-
-  .page.right-page {
-    position: relative;
-    right: auto;
+  /* Single page view - hide all pages by default */
+  .page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    transform: none !important;
     transform-origin: center center;
-  }
-
-  .page.right-page.flipped {
-    transform: rotateY(0);
     display: none;
   }
 
-  .page.right-page.active {
-    display: block;
+  .page.left-page {
+    display: none !important;
+  }
+
+  /* Only show active page */
+  .page.active {
+    display: block !important;
+    position: relative;
+  }
+
+  .page.flipped {
+    display: none !important;
+  }
+
+  /* Page content adjustments */
+  .page-front,
+  .page-back {
+    backface-visibility: visible;
   }
 
   .toolbar {
-    padding: 0 1rem;
+    padding: 0 0.75rem;
     height: 50px;
   }
 
+  .toolbar-left {
+    flex: 1;
+    min-width: 0;
+  }
+
   .logo {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .subtitle {
     display: none;
+  }
+
+  .toolbar-center {
+    position: static;
+    transform: none;
+    flex-shrink: 0;
+  }
+
+  .page-indicator {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .toolbar-right {
+    flex-shrink: 0;
   }
 
   .mode-label {
@@ -1282,67 +1323,93 @@ body:not(.study-mode) .vocab-hint {
     display: none;
   }
 
+  .mode-toggle {
+    padding: 2px;
+  }
+
+  .mode-btn {
+    padding: 0.3rem 0.5rem;
+  }
+
   .sound-btn {
-    padding: 0.4rem 0.6rem;
-    margin-right: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    margin-right: 0.4rem;
   }
 
   .controls {
-    bottom: 1.5rem;
+    bottom: 1rem;
+    gap: 0.75rem;
   }
 
   .nav-btn {
-    padding: 0.6rem 1rem;
-    font-size: 0.8rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
   }
 
   .nav-text {
     display: none;
   }
 
+  .nav-icon {
+    font-size: 1.2rem;
+  }
+
   .toc-trigger {
-    bottom: 1.5rem;
+    bottom: 1rem;
     left: 1rem;
     width: 44px;
     height: 44px;
+    font-size: 1.3rem;
   }
 
   .keyboard-help {
     display: none !important;
   }
-}
 
-/* Mobile */
-@media (max-width: 480px) {
-  :root {
-    --page-width: calc(100vw - 2rem);
-    --page-height: calc(100vh - 180px);
-  }
-
-  .flipbook-container {
-    padding: 60px 0.5rem 80px;
-  }
-
+  /* Page content */
   .page-content {
     padding: 0.75rem;
   }
 
+  .page-header {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+  }
+
   .scene-title {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+  }
+
+  .timecode {
+    font-size: 0.65rem;
   }
 
   .comic-panel {
-    height: 80px;
+    height: 70px;
   }
 
-  .speech-bubble {
-    font-size: 0.8rem;
-    padding: 0.5rem 0.6rem;
+  .panel-icon {
+    font-size: 2rem;
+  }
+
+  .panel-caption {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .dialogue-container {
+    gap: 0.5rem;
   }
 
   .speaker-label {
     width: 50px;
     font-size: 0.6rem;
+  }
+
+  .speech-bubble {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.6rem;
+    line-height: 1.35;
   }
 
   .dialogue.rob .speech-bubble {
