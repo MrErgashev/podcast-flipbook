@@ -856,6 +856,7 @@ function flipMobile(targetPage) {
   state.currentPage = targetPage;
   updatePageIndicator();
   updateNavButtons();
+  updatePageVisibility();
   announcePageChange();
 }
 
