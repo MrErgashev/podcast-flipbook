@@ -1236,6 +1236,7 @@ body:not(.study-mode) .vocab-hint {
   .flipbook-container {
     padding: 60px 1rem 90px;
     min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .book-wrapper {
@@ -1267,7 +1268,8 @@ body:not(.study-mode) .vocab-hint {
     top: 0 !important;
     transform: none !important;
     transform-origin: center center;
-    display: none;
+    display: none !important;
+    visibility: hidden;
   }
 
   .page.left-page {
@@ -1278,16 +1280,20 @@ body:not(.study-mode) .vocab-hint {
     width: 100% !important;
   }
 
-  /* Only show active page */
+  /* Only show active page - highest priority */
   .page.active {
     display: block !important;
+    visibility: visible !important;
     position: relative;
     width: 100% !important;
     height: 100% !important;
+    z-index: 100;
   }
 
-  .page.flipped {
+  /* Ensure flipped pages don't interfere */
+  .page.flipped:not(.active) {
     display: none !important;
+    visibility: hidden !important;
   }
 
   /* Page faces full width */
@@ -1296,6 +1302,12 @@ body:not(.study-mode) .vocab-hint {
     width: 100% !important;
     height: 100% !important;
     backface-visibility: visible;
+    position: relative;
+  }
+
+  /* Hide back face on mobile - we only show front */
+  .page-back {
+    display: none;
   }
 
   .page-content {
@@ -1369,6 +1381,14 @@ body:not(.study-mode) .vocab-hint {
   .nav-btn {
     padding: 0.6rem 1.2rem;
     font-size: 0.85rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Active state for better touch feedback */
+  .nav-btn:active:not(:disabled) {
+    transform: scale(0.95);
+    background: var(--accent-primary);
   }
 
   .nav-text {
@@ -1385,6 +1405,12 @@ body:not(.study-mode) .vocab-hint {
     width: 44px;
     height: 44px;
     font-size: 1.3rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .toc-trigger:active {
+    transform: scale(0.95);
   }
 
   .keyboard-help {
@@ -1394,6 +1420,9 @@ body:not(.study-mode) .vocab-hint {
   /* Page content */
   .page-content {
     padding: 0.75rem;
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .page-header {

@@ -524,11 +524,14 @@ function renderBook() {
   if (state.isMobile) {
     const pages = elements.book.querySelectorAll('.page');
     pages.forEach((page, index) => {
+      page.classList.remove('active', 'flipped');
       if (index === state.currentPage) {
         page.classList.add('active');
         page.style.display = 'block';
+        page.style.visibility = 'visible';
       } else {
         page.style.display = 'none';
+        page.style.visibility = 'hidden';
       }
     });
   }
@@ -740,12 +743,14 @@ function goToPage(pageNum) {
   const direction = pageNum > state.currentPage ? 'forward' : 'backward';
 
   if (state.isMobile) {
-    // Mobile: simple page swap
+    // Mobile: simple page swap with sound
+    playPageTurnSound();
     flipMobile(pageNum);
   } else {
     // Desktop: animate through pages
     if (Math.abs(pageNum - state.currentPage) > 1) {
       // Jump directly for large differences
+      playPageTurnSound();
       state.currentPage = pageNum;
       updateAllPages();
     } else {
@@ -844,6 +849,7 @@ function flipMobile(targetPage) {
   pages.forEach((page) => {
     page.classList.remove('active', 'flipped', 'flipping-forward', 'flipping-backward');
     page.style.display = 'none';
+    page.style.visibility = 'hidden';
   });
 
   // Show only target page
@@ -851,6 +857,7 @@ function flipMobile(targetPage) {
   if (targetPageEl) {
     targetPageEl.classList.add('active');
     targetPageEl.style.display = 'block';
+    targetPageEl.style.visibility = 'visible';
   }
 
   state.currentPage = targetPage;
